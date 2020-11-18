@@ -1,6 +1,6 @@
 # WebGL in 20
 
-It is said that it takes 20 hours to learn any skill. It comes across as an arbitrary number, but it's a good starting point. WebGL is one of those skills you will need to struggle with in the beginning. To get through this you will need to be consistent and have a plan.
+It is said that it takes 20 hours to learn any skill. It sounds like an arbitrary number, but it will be a good starting point. WebGL is one of those skills you will need to struggle with in the beginning. To get through this you will need to be consistent and have a plan.
 
 The plan is to struggle with WebGL for 40 minutes each day until I get to the 20-hour mark.
 This should take 30 days, according to the statistics.
