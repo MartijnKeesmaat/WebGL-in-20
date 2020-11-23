@@ -46380,7 +46380,7 @@ function () {
 
 exports.default = Sketch;
 new Sketch('container');
-},{"three":"node_modules/three/build/three.module.js","./shader/vertex.glsl":"js/shader/vertex.glsl","./shader/fragment.glsl":"js/shader/fragment.glsl","dat.gui":"node_modules/dat.gui/build/dat.gui.module.js","/img/img.jpg":"img/img.jpg","gsap":"node_modules/gsap/index.js","three-orbit-controls":"node_modules/three-orbit-controls/index.js"}],"../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"three":"node_modules/three/build/three.module.js","./shader/vertex.glsl":"js/shader/vertex.glsl","./shader/fragment.glsl":"js/shader/fragment.glsl","dat.gui":"node_modules/dat.gui/build/dat.gui.module.js","/img/img.jpg":"img/img.jpg","gsap":"node_modules/gsap/index.js","three-orbit-controls":"node_modules/three-orbit-controls/index.js"}],"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -46408,7 +46408,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57000" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59546" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -46584,5 +46584,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/app.js"], null)
+},{}]},{},["../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/app.js"], null)
 //# sourceMappingURL=/app.c3f9f951.js.map
