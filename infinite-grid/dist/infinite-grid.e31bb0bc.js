@@ -48855,6 +48855,20 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var PVector = function PVector(x, y) {
+  this.x = x;
+  this.y = y;
+};
+
+PVector.prototype.add = function (v) {
+  this.x = this.x + v.x;
+  this.y = this.y + v.y;
+};
+
+var map = function map(from, to, s) {
+  return to[0] + (s - from[0]) * (to[1] - to[0]) / (from[1] - from[0]);
+};
+
 function loadImages(paths, whenLoaded) {
   var imgs = [];
   var img0 = [];
@@ -48894,37 +48908,136 @@ function () {
 
     /* #region  Images */
 
-    this.images = [_.default, _2.default, _3.default, _4.default, _5.default, _6.default, _7.default, _8.default];
-    this.imageWidth = 400;
-    this.imageHeight = 400;
+    this.margin = window.innerHeight / 25;
+    this.imageWidth = window.innerHeight / 1.8 - this.margin;
+    this.imageHeight = window.innerHeight / 1.8 - this.margin;
+    this.itemSize = this.imageHeight + this.margin;
+    this.images = [_.default, _2.default, _3.default, _4.default, _5.default, _6.default, _3.default, _7.default, _8.default, _7.default, _2.default, _4.default, _6.default, _.default, _8.default];
     /* #endregion */
 
+    this.thumbs = [];
+    this.mouseDown = false;
+    this.mouseUp = false;
+    this.pos = new PVector(0, 0);
+    this.vel = new PVector(0, 0.1);
+    this.posX = 0;
+    this.posY = 0;
+    this.directionX = 0;
+    this.speedX = 0;
+    this.directionY = 0;
+    this.speedY = 0;
+    this.friction = 0.8;
     loadImages(this.images, function (images) {
       _this.loadedImages = images;
 
       _this.render();
 
       _this.addImages();
+
+      _this.addEvent();
     });
   }
 
   _createClass(Sketch, [{
+    key: "addEvent",
+    value: function addEvent() {
+      // The item (or items) to press and hold on
+      var item = window;
+      var timerID;
+      var counter = 0; // let pressHoldEvent = new CustomEvent('pressHold');
+      // Increase or decreae value to adjust how long
+      // one should keep pressing down before the pressHold
+      // event fires
+      // let pressHoldDuration = 50;
+      // Listening for the mouse and touch events
+
+      item.addEventListener('mousedown', pressingDown, false);
+      item.addEventListener('mouseup', notPressingDown, false);
+      item.addEventListener('mouseleave', notPressingDown, false);
+      item.addEventListener('touchstart', pressingDown, false);
+      item.addEventListener('touchend', notPressingDown, false);
+      item.addEventListener('mousemove', mouseMove, false);
+      var that = this;
+
+      function pressingDown(e) {
+        requestAnimationFrame(timer);
+        that.mouseDown = true;
+      }
+
+      function notPressingDown(e) {
+        cancelAnimationFrame(timerID);
+        counter = 0;
+        that.mouseDown = false;
+      }
+
+      function mouseMove(e) {
+        if (that.mouseDown === true) {
+          that.directionX = e.clientX > window.innerWidth / 2 ? 1 : -1;
+          that.directionY = e.clientY > window.innerHeight / 2 ? 1 : -1; // console.log('eh', eh);
+
+          that.speedX = map([0, window.innerWidth / 2], [window.innerWidth / 2, 0], e.clientX);
+          that.speedY = map([0, window.innerHeight / 2], [window.innerHeight / 2, 0], e.clientY); // that.posX = e.clientX * that.directionX;
+          // console.log('direction', that.directionX);
+          // console.log('pos', that.posX);
+        }
+      }
+
+      function timer() {
+        timerID = requestAnimationFrame(timer);
+        counter++;
+      }
+    }
+  }, {
     key: "addImages",
     value: function addImages() {
-      console.log('this.loadedImages', this.loadedImages);
-      var bunny = PIXI.Sprite.from(this.loadedImages[0].img);
-      bunny.anchor.set(0.5);
-      bunny.x = this.app.screen.width / 2;
-      bunny.y = this.app.screen.height / 2;
-      bunny.width = this.imageWidth;
-      bunny.height = this.imageHeight;
-      this.app.stage.addChild(bunny); // this.loadedImages.forEach((img, i) => {
-      // });
+      var _this2 = this;
+
+      var grid = {
+        x: 0,
+        y: 0
+      };
+      this.images.forEach(function (el, i) {
+        var texture = PIXI.Texture.from(_this2.loadedImages[i].img);
+        var sprite = PIXI.Sprite.from(texture);
+        var rowcount = 5;
+        var isEven = grid.y % 2 === 0;
+        sprite.x = _this2.itemSize * grid.x - 0; // ???
+        // sprite.x += isEven && itemSize / 2;
+
+        sprite.y = _this2.itemSize * grid.y - _this2.itemSize / 2;
+        sprite.width = _this2.imageWidth;
+        sprite.height = _this2.imageHeight;
+        grid.x++;
+
+        if (grid.x === rowcount) {
+          grid.x = 0;
+          grid.y++;
+        } // sprite.anchor.set(0.5);
+
+
+        _this2.container.addChild(sprite);
+
+        _this2.thumbs.push(sprite);
+      }); // console.log(grid);
     }
   }, {
     key: "render",
     value: function render() {
-      this.app.ticker.add(function () {// console.log(this.loadedImages);
+      var _this3 = this;
+
+      this.app.ticker.add(function () {
+        if (_this3.mouseDown) {
+          _this3.posX += _this3.speedX;
+          _this3.posY += _this3.speedY;
+        }
+
+        _this3.posX *= _this3.friction;
+        _this3.posY *= _this3.friction;
+
+        _this3.thumbs.forEach(function (th) {
+          th.position.x += _this3.posX * _this3.friction / 500;
+          th.position.y += _this3.posY * _this3.friction / 500;
+        });
       });
     }
   }]);
@@ -48961,7 +49074,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61797" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57476" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
