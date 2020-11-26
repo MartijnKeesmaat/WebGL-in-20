@@ -71,14 +71,12 @@ class Sketch {
     this.mouseUp = false;
 
     this.pos = new PVector(0, 0);
-    this.vel = new PVector(0, 0.1);
-    this.posX = 0;
-    this.posY = 0;
-    this.directionX = 0;
-    this.speedX = 0;
-    this.directionY = 0;
-    this.speedY = 0;
+    this.vel = new PVector(0, 0);
+    this.acc = new PVector(0, 0);
+
     this.friction = 0.8;
+
+    this.initialMousePos = new PVector(0, 0);
 
     loadImages(this.images, (images) => {
       this.loadedImages = images;
@@ -117,6 +115,9 @@ class Sketch {
     function pressingDown(e) {
       requestAnimationFrame(timer);
       that.mouseDown = true;
+
+      that.initialMousePos.x = e.clientX;
+      that.initialMousePos.y = e.clientY;
     }
 
     function notPressingDown(e) {
@@ -127,17 +128,8 @@ class Sketch {
 
     function mouseMove(e) {
       if (that.mouseDown === true) {
-        that.directionX = e.clientX > window.innerWidth / 2 ? 1 : -1;
-        that.directionY = e.clientY > window.innerHeight / 2 ? 1 : -1;
-
-        // console.log('eh', eh);
-
-        that.speedX = map([0, window.innerWidth / 2], [window.innerWidth / 2, 0], e.clientX);
-        that.speedY = map([0, window.innerHeight / 2], [window.innerHeight / 2, 0], e.clientY);
-        // that.posX = e.clientX * that.directionX;
-
-        // console.log('direction', that.directionX);
-        // console.log('pos', that.posX);
+        that.vel.x = (that.initialMousePos.x - e.clientX) * -1;
+        that.vel.y = (that.initialMousePos.y - e.clientY) * -1;
       }
     }
 
@@ -161,7 +153,6 @@ class Sketch {
       const isEven = grid.y % 2 === 0;
 
       sprite.x = this.itemSize * grid.x - 0; // ???
-      // sprite.x += isEven && itemSize / 2;
       sprite.y = this.itemSize * grid.y - this.itemSize / 2;
 
       sprite.width = this.imageWidth;
@@ -173,28 +164,21 @@ class Sketch {
         grid.y++;
       }
 
-      // sprite.anchor.set(0.5);
-
       this.container.addChild(sprite);
       this.thumbs.push(sprite);
     });
-
-    // console.log(grid);
   }
 
   render() {
     this.app.ticker.add(() => {
       if (this.mouseDown) {
-        this.posX += this.speedX;
-        this.posY += this.speedY;
+        this.vel.add(this.acc);
+        this.pos.add(this.vel);
       }
 
-      this.posX *= this.friction;
-      this.posY *= this.friction;
-
       this.thumbs.forEach((th) => {
-        th.position.x += (this.posX * this.friction) / 500;
-        th.position.y += (this.posY * this.friction) / 500;
+        th.position.x += (this.pos.x * this.friction) / 300;
+        th.position.y += (this.pos.y * this.friction) / 300;
       });
     });
   }

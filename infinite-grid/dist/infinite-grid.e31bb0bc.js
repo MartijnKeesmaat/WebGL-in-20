@@ -48919,14 +48919,10 @@ function () {
     this.mouseDown = false;
     this.mouseUp = false;
     this.pos = new PVector(0, 0);
-    this.vel = new PVector(0, 0.1);
-    this.posX = 0;
-    this.posY = 0;
-    this.directionX = 0;
-    this.speedX = 0;
-    this.directionY = 0;
-    this.speedY = 0;
+    this.vel = new PVector(0, 0);
+    this.acc = new PVector(0, 0);
     this.friction = 0.8;
+    this.initialMousePos = new PVector(0, 0);
     loadImages(this.images, function (images) {
       _this.loadedImages = images;
 
@@ -48962,6 +48958,8 @@ function () {
       function pressingDown(e) {
         requestAnimationFrame(timer);
         that.mouseDown = true;
+        that.initialMousePos.x = e.clientX;
+        that.initialMousePos.y = e.clientY;
       }
 
       function notPressingDown(e) {
@@ -48972,13 +48970,8 @@ function () {
 
       function mouseMove(e) {
         if (that.mouseDown === true) {
-          that.directionX = e.clientX > window.innerWidth / 2 ? 1 : -1;
-          that.directionY = e.clientY > window.innerHeight / 2 ? 1 : -1; // console.log('eh', eh);
-
-          that.speedX = map([0, window.innerWidth / 2], [window.innerWidth / 2, 0], e.clientX);
-          that.speedY = map([0, window.innerHeight / 2], [window.innerHeight / 2, 0], e.clientY); // that.posX = e.clientX * that.directionX;
-          // console.log('direction', that.directionX);
-          // console.log('pos', that.posX);
+          that.vel.x = (that.initialMousePos.x - e.clientX) * -1;
+          that.vel.y = (that.initialMousePos.y - e.clientY) * -1;
         }
       }
 
@@ -49002,7 +48995,6 @@ function () {
         var rowcount = 5;
         var isEven = grid.y % 2 === 0;
         sprite.x = _this2.itemSize * grid.x - 0; // ???
-        // sprite.x += isEven && itemSize / 2;
 
         sprite.y = _this2.itemSize * grid.y - _this2.itemSize / 2;
         sprite.width = _this2.imageWidth;
@@ -49012,13 +49004,12 @@ function () {
         if (grid.x === rowcount) {
           grid.x = 0;
           grid.y++;
-        } // sprite.anchor.set(0.5);
-
+        }
 
         _this2.container.addChild(sprite);
 
         _this2.thumbs.push(sprite);
-      }); // console.log(grid);
+      });
     }
   }, {
     key: "render",
@@ -49027,16 +49018,14 @@ function () {
 
       this.app.ticker.add(function () {
         if (_this3.mouseDown) {
-          _this3.posX += _this3.speedX;
-          _this3.posY += _this3.speedY;
+          _this3.vel.add(_this3.acc);
+
+          _this3.pos.add(_this3.vel);
         }
 
-        _this3.posX *= _this3.friction;
-        _this3.posY *= _this3.friction;
-
         _this3.thumbs.forEach(function (th) {
-          th.position.x += _this3.posX * _this3.friction / 500;
-          th.position.y += _this3.posY * _this3.friction / 500;
+          th.position.x += _this3.pos.x * _this3.friction / 300;
+          th.position.y += _this3.pos.y * _this3.friction / 300;
         });
       });
     }
@@ -49074,7 +49063,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57476" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64709" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
