@@ -48759,51 +48759,45 @@ var filters = {
   NoiseFilter: _filterNoise.NoiseFilter
 };
 exports.filters = filters;
-},{"@pixi/polyfill":"node_modules/@pixi/polyfill/lib/polyfill.es.js","@pixi/utils":"node_modules/@pixi/utils/lib/utils.es.js","@pixi/accessibility":"node_modules/@pixi/accessibility/lib/accessibility.es.js","@pixi/interaction":"node_modules/@pixi/interaction/lib/interaction.es.js","@pixi/app":"node_modules/@pixi/app/lib/app.es.js","@pixi/core":"node_modules/@pixi/core/lib/core.es.js","@pixi/extract":"node_modules/@pixi/extract/lib/extract.es.js","@pixi/loaders":"node_modules/@pixi/loaders/lib/loaders.es.js","@pixi/particles":"node_modules/@pixi/particles/lib/particles.es.js","@pixi/prepare":"node_modules/@pixi/prepare/lib/prepare.es.js","@pixi/spritesheet":"node_modules/@pixi/spritesheet/lib/spritesheet.es.js","@pixi/sprite-tiling":"node_modules/@pixi/sprite-tiling/lib/sprite-tiling.es.js","@pixi/text-bitmap":"node_modules/@pixi/text-bitmap/lib/text-bitmap.es.js","@pixi/ticker":"node_modules/@pixi/ticker/lib/ticker.es.js","@pixi/filter-alpha":"node_modules/@pixi/filter-alpha/lib/filter-alpha.es.js","@pixi/filter-blur":"node_modules/@pixi/filter-blur/lib/filter-blur.es.js","@pixi/filter-color-matrix":"node_modules/@pixi/filter-color-matrix/lib/filter-color-matrix.es.js","@pixi/filter-displacement":"node_modules/@pixi/filter-displacement/lib/filter-displacement.es.js","@pixi/filter-fxaa":"node_modules/@pixi/filter-fxaa/lib/filter-fxaa.es.js","@pixi/filter-noise":"node_modules/@pixi/filter-noise/lib/filter-noise.es.js","@pixi/mixin-cache-as-bitmap":"node_modules/@pixi/mixin-cache-as-bitmap/lib/mixin-cache-as-bitmap.es.js","@pixi/mixin-get-child-by-name":"node_modules/@pixi/mixin-get-child-by-name/lib/mixin-get-child-by-name.es.js","@pixi/mixin-get-global-position":"node_modules/@pixi/mixin-get-global-position/lib/mixin-get-global-position.es.js","@pixi/constants":"node_modules/@pixi/constants/lib/constants.es.js","@pixi/display":"node_modules/@pixi/display/lib/display.es.js","@pixi/graphics":"node_modules/@pixi/graphics/lib/graphics.es.js","@pixi/math":"node_modules/@pixi/math/lib/math.es.js","@pixi/mesh":"node_modules/@pixi/mesh/lib/mesh.es.js","@pixi/mesh-extras":"node_modules/@pixi/mesh-extras/lib/mesh-extras.es.js","@pixi/runner":"node_modules/@pixi/runner/lib/runner.es.js","@pixi/sprite":"node_modules/@pixi/sprite/lib/sprite.es.js","@pixi/sprite-animated":"node_modules/@pixi/sprite-animated/lib/sprite-animated.es.js","@pixi/text":"node_modules/@pixi/text/lib/text.es.js","@pixi/settings":"node_modules/@pixi/settings/lib/settings.es.js"}],"node_modules/math-fit/index.js":[function(require,module,exports) {
-'use strict';
+},{"@pixi/polyfill":"node_modules/@pixi/polyfill/lib/polyfill.es.js","@pixi/utils":"node_modules/@pixi/utils/lib/utils.es.js","@pixi/accessibility":"node_modules/@pixi/accessibility/lib/accessibility.es.js","@pixi/interaction":"node_modules/@pixi/interaction/lib/interaction.es.js","@pixi/app":"node_modules/@pixi/app/lib/app.es.js","@pixi/core":"node_modules/@pixi/core/lib/core.es.js","@pixi/extract":"node_modules/@pixi/extract/lib/extract.es.js","@pixi/loaders":"node_modules/@pixi/loaders/lib/loaders.es.js","@pixi/particles":"node_modules/@pixi/particles/lib/particles.es.js","@pixi/prepare":"node_modules/@pixi/prepare/lib/prepare.es.js","@pixi/spritesheet":"node_modules/@pixi/spritesheet/lib/spritesheet.es.js","@pixi/sprite-tiling":"node_modules/@pixi/sprite-tiling/lib/sprite-tiling.es.js","@pixi/text-bitmap":"node_modules/@pixi/text-bitmap/lib/text-bitmap.es.js","@pixi/ticker":"node_modules/@pixi/ticker/lib/ticker.es.js","@pixi/filter-alpha":"node_modules/@pixi/filter-alpha/lib/filter-alpha.es.js","@pixi/filter-blur":"node_modules/@pixi/filter-blur/lib/filter-blur.es.js","@pixi/filter-color-matrix":"node_modules/@pixi/filter-color-matrix/lib/filter-color-matrix.es.js","@pixi/filter-displacement":"node_modules/@pixi/filter-displacement/lib/filter-displacement.es.js","@pixi/filter-fxaa":"node_modules/@pixi/filter-fxaa/lib/filter-fxaa.es.js","@pixi/filter-noise":"node_modules/@pixi/filter-noise/lib/filter-noise.es.js","@pixi/mixin-cache-as-bitmap":"node_modules/@pixi/mixin-cache-as-bitmap/lib/mixin-cache-as-bitmap.es.js","@pixi/mixin-get-child-by-name":"node_modules/@pixi/mixin-get-child-by-name/lib/mixin-get-child-by-name.es.js","@pixi/mixin-get-global-position":"node_modules/@pixi/mixin-get-global-position/lib/mixin-get-global-position.es.js","@pixi/constants":"node_modules/@pixi/constants/lib/constants.es.js","@pixi/display":"node_modules/@pixi/display/lib/display.es.js","@pixi/graphics":"node_modules/@pixi/graphics/lib/graphics.es.js","@pixi/math":"node_modules/@pixi/math/lib/math.es.js","@pixi/mesh":"node_modules/@pixi/mesh/lib/mesh.es.js","@pixi/mesh-extras":"node_modules/@pixi/mesh-extras/lib/mesh-extras.es.js","@pixi/runner":"node_modules/@pixi/runner/lib/runner.es.js","@pixi/sprite":"node_modules/@pixi/sprite/lib/sprite.es.js","@pixi/sprite-animated":"node_modules/@pixi/sprite-animated/lib/sprite-animated.es.js","@pixi/text":"node_modules/@pixi/text/lib/text.es.js","@pixi/settings":"node_modules/@pixi/settings/lib/settings.es.js"}],"helpers.js":[function(require,module,exports) {
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadImages = loadImages;
+exports.Vector = void 0;
 
-module.exports = exports = cover;
+function loadImages(paths, whenLoaded) {
+  var imgs = [];
+  var img0 = [];
+  paths.forEach(function (path) {
+    var img = new Image();
 
-exports.cover = cover;
+    img.onload = function () {
+      imgs.push(img);
+      img0.push({
+        path: path,
+        img: img
+      });
+      if (imgs.length === paths.length) whenLoaded(img0);
+    };
 
-function cover(target, container) {
-  return calculate(target, container, true);
+    img.src = path;
+  });
 }
 
+var Vector = function Vector(x, y) {
+  this.x = x;
+  this.y = y;
+};
 
-exports.contain = contain;
+exports.Vector = Vector;
 
-function contain(target, container) {
-  return calculate(target, container, false);
-}
-
-
-function calculate(target, container, cover) {
-  var containerW = container.width || container.w;
-  var containerH = container.height || container.h;
-  var targetW = target.width || target.w;
-  var targetH = target.height || target.h;
-
-  var rw = containerW / targetW;
-  var rh = containerH / targetH;
-  var r;
-
-  if (cover) {
-    r = (rw > rh) ? rw : rh;
-  } else {
-    r = (rw < rh) ? rw : rh;
-  }
-
-  return {
-    left: (containerW - targetW * r) >> 1,
-    top: (containerH - targetH * r) >> 1,
-    width: targetW * r,
-    height: targetH * r,
-    scale: r
-  };
-}
-
+Vector.prototype.add = function (v) {
+  this.x = this.x + v.x;
+  this.y = this.y + v.y;
+};
 },{}],"img/1.jpg":[function(require,module,exports) {
 module.exports = "/1.dc197a9a.jpg";
 },{}],"img/2.jpg":[function(require,module,exports) {
@@ -48825,7 +48819,7 @@ module.exports = "/8.f4323fe0.jpg";
 
 var PIXI = _interopRequireWildcard(require("pixi.js"));
 
-var _mathFit = _interopRequireDefault(require("math-fit"));
+var _helpers = require("./helpers");
 
 var _ = _interopRequireDefault(require("./img/1.jpg"));
 
@@ -48855,187 +48849,115 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var PVector = function PVector(x, y) {
-  this.x = x;
-  this.y = y;
-};
-
-PVector.prototype.add = function (v) {
-  this.x = this.x + v.x;
-  this.y = this.y + v.y;
-};
-
-var map = function map(from, to, s) {
-  return to[0] + (s - from[0]) * (to[1] - to[0]) / (from[1] - from[0]);
-};
-
-function loadImages(paths, whenLoaded) {
-  var imgs = [];
-  var img0 = [];
-  paths.forEach(function (path) {
-    var img = new Image();
-
-    img.onload = function () {
-      imgs.push(img);
-      img0.push({
-        path: path,
-        img: img
-      });
-      if (imgs.length === paths.length) whenLoaded(img0);
-    };
-
-    img.src = path;
-  });
-}
-
-var Sketch =
+var Grid =
 /*#__PURE__*/
 function () {
-  function Sketch(selector) {
-    var _this = this;
+  function Grid(selector) {
+    _classCallCheck(this, Grid);
 
-    _classCallCheck(this, Sketch);
-
-    /* #region  PIXI setup */
-    this.app = new PIXI.Application({
-      backgroundColor: 0xeeeeee,
-      resizeTo: window
-    });
-    document.getElementById(selector).appendChild(this.app.view);
-    this.container = new PIXI.Container();
-    this.app.stage.addChild(this.container);
-    /* #endregion */
-
-    /* #region  Images */
-
-    this.margin = window.innerHeight / 25;
-    this.imageWidth = window.innerHeight / 1.8 - this.margin;
-    this.imageHeight = window.innerHeight / 1.8 - this.margin;
-    this.itemSize = this.imageHeight + this.margin;
-    this.images = [_.default, _2.default, _3.default, _4.default, _5.default, _6.default, _3.default, _7.default, _8.default, _7.default, _2.default, _4.default, _6.default, _.default, _8.default];
-    /* #endregion */
-
-    this.thumbs = [];
-    this.mouseDown = false;
-    this.mouseUp = false;
-    this.pos = new PVector(0, 0);
-    this.vel = new PVector(0, 0);
-    this.acc = new PVector(0, 0);
-    this.friction = 0.8;
-    this.initialMousePos = new PVector(0, 0);
-    loadImages(this.images, function (images) {
-      _this.loadedImages = images;
-
-      _this.render();
-
-      _this.addImages();
-
-      _this.addEvent();
-    });
+    this.setup(selector);
+    this.getImages();
+    this.events();
   }
 
-  _createClass(Sketch, [{
-    key: "addEvent",
-    value: function addEvent() {
-      // The item (or items) to press and hold on
-      var item = window;
-      var timerID;
-      var counter = 0; // let pressHoldEvent = new CustomEvent('pressHold');
-      // Increase or decreae value to adjust how long
-      // one should keep pressing down before the pressHold
-      // event fires
-      // let pressHoldDuration = 50;
-      // Listening for the mouse and touch events
-
-      item.addEventListener('mousedown', pressingDown, false);
-      item.addEventListener('mouseup', notPressingDown, false);
-      item.addEventListener('mouseleave', notPressingDown, false);
-      item.addEventListener('touchstart', pressingDown, false);
-      item.addEventListener('touchend', notPressingDown, false);
-      item.addEventListener('mousemove', mouseMove, false);
-      var that = this;
-
-      function pressingDown(e) {
-        requestAnimationFrame(timer);
-        that.mouseDown = true;
-        that.initialMousePos.x = e.clientX;
-        that.initialMousePos.y = e.clientY;
-      }
-
-      function notPressingDown(e) {
-        cancelAnimationFrame(timerID);
-        counter = 0;
-        that.mouseDown = false;
-      }
-
-      function mouseMove(e) {
-        if (that.mouseDown === true) {
-          that.vel.x = (that.initialMousePos.x - e.clientX) * -1;
-          that.vel.y = (that.initialMousePos.y - e.clientY) * -1;
-        }
-      }
-
-      function timer() {
-        timerID = requestAnimationFrame(timer);
-        counter++;
-      }
+  _createClass(Grid, [{
+    key: "setup",
+    value: function setup(selector) {
+      this.app = new PIXI.Application({
+        backgroundColor: 0xeeeeee,
+        resizeTo: window
+      });
+      document.getElementById(selector).appendChild(this.app.view);
+      this.container = new PIXI.Container();
+      this.app.stage.addChild(this.container);
+      this.target = new _helpers.Vector(0, 0);
     }
   }, {
-    key: "addImages",
-    value: function addImages() {
-      var _this2 = this;
+    key: "events",
+    value: function events() {
+      var _this = this;
 
-      var grid = {
-        x: 0,
-        y: 0
-      };
-      this.images.forEach(function (el, i) {
-        var texture = PIXI.Texture.from(_this2.loadedImages[i].img);
-        var sprite = PIXI.Sprite.from(texture);
-        var rowcount = 5;
-        var isEven = grid.y % 2 === 0;
-        sprite.x = _this2.itemSize * grid.x - 0; // ???
-
-        sprite.y = _this2.itemSize * grid.y - _this2.itemSize / 2;
-        sprite.width = _this2.imageWidth;
-        sprite.height = _this2.imageHeight;
-        grid.x++;
-
-        if (grid.x === rowcount) {
-          grid.x = 0;
-          grid.y++;
-        }
-
-        _this2.container.addChild(sprite);
-
-        _this2.thumbs.push(sprite);
+      window.addEventListener('mousedown', function (e) {
+        console.log(e.clientX);
+        _this.target.x = e.clientX;
+        _this.target.y = e.clientY;
       });
     }
   }, {
-    key: "render",
-    value: function render() {
+    key: "getImages",
+    value: function getImages() {
+      var _this2 = this;
+
+      this.images = [_.default, _2.default, _3.default, _4.default, _5.default, _6.default, _7.default, _8.default, _4.default, _5.default, _6.default, _7.default, _8.default, _3.default, _4.default];
+      this.loadedImages = [];
+      (0, _helpers.loadImages)(this.images, function (images) {
+        images.forEach(function (img, i) {
+          new Img(img, _this2.container, _this2.app, i);
+        });
+      });
+    }
+  }, {
+    key: "update",
+    value: function update() {
+      console.log(this.target);
+    }
+  }]);
+
+  return Grid;
+}();
+
+var Img =
+/*#__PURE__*/
+function () {
+  function Img(src, container, app, i) {
+    _classCallCheck(this, Img);
+
+    this.src = src;
+    this.container = container;
+    this.app = app;
+    this.i = i;
+    this.size = 300;
+    this.margin = 30;
+    this.step = (this.size + this.margin) * this.i;
+    this.pos = new _helpers.Vector(1 * this.step, 1 * this.i);
+    this.vel = new _helpers.Vector(0, 0);
+    this.acc = new _helpers.Vector(0, 0);
+    this.add();
+    this.update();
+  }
+
+  _createClass(Img, [{
+    key: "add",
+    value: function add() {
+      var texture = PIXI.Texture.from(this.src.img);
+      this.sprite = PIXI.Sprite.from(texture);
+      this.sprite.width = this.size;
+      this.sprite.height = this.size;
+      this.sprite.position.x = this.pos.x;
+      this.sprite.position.y = this.pos.y;
+      this.container.addChild(this.sprite);
+    }
+  }, {
+    key: "update",
+    value: function update() {
       var _this3 = this;
 
       this.app.ticker.add(function () {
-        if (_this3.mouseDown) {
-          _this3.vel.add(_this3.acc);
+        _this3.vel.add(_this3.acc);
 
-          _this3.pos.add(_this3.vel);
-        }
+        _this3.pos.add(_this3.vel);
 
-        _this3.thumbs.forEach(function (th) {
-          th.position.x += _this3.pos.x * _this3.friction / 300;
-          th.position.y += _this3.pos.y * _this3.friction / 300;
-        });
+        _this3.sprite.position.x = _this3.pos.x;
+        _this3.sprite.position.y = _this3.pos.y;
       });
     }
   }]);
 
-  return Sketch;
+  return Img;
 }();
 
-new Sketch('container');
-},{"pixi.js":"node_modules/pixi.js/lib/pixi.es.js","math-fit":"node_modules/math-fit/index.js","./img/1.jpg":"img/1.jpg","./img/2.jpg":"img/2.jpg","./img/3.jpeg":"img/3.jpeg","./img/4.jpg":"img/4.jpg","./img/5.jpg":"img/5.jpg","./img/6.jpeg":"img/6.jpeg","./img/7.jpeg":"img/7.jpeg","./img/8.jpg":"img/8.jpg"}],"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var g = new Grid('container');
+},{"pixi.js":"node_modules/pixi.js/lib/pixi.es.js","./helpers":"helpers.js","./img/1.jpg":"img/1.jpg","./img/2.jpg":"img/2.jpg","./img/3.jpeg":"img/3.jpeg","./img/4.jpg":"img/4.jpg","./img/5.jpg":"img/5.jpg","./img/6.jpeg":"img/6.jpeg","./img/7.jpeg":"img/7.jpeg","./img/8.jpg":"img/8.jpg"}],"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
